@@ -42,9 +42,7 @@ public class PlayerController : MonoBehaviour
         moveInput += transform.right * Input.GetAxisRaw("Horizontal");
         moveInput += transform.forward * Input.GetAxisRaw("Vertical");
 
-        //if(moveInput == Vector3.zero)
-        //    rb.velocity = Vector3.zero;
 
-        return moveInput.normalized;
+        return moveInput.normalized;    //Normalize directional Vector to ensure walking speed doesn't change depending on input
     }
 }
