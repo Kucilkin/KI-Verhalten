@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class StateManager_Zombie : MonoBehaviour
 {
+
+    public Rigidbody RB;
     public Transform PlayerPos;
     public Transform MyPos;
+    public float MoveSpeed;
 
     public State_ZombieBase currState;  //Current State the Entity will be in
 
@@ -17,19 +20,29 @@ public class StateManager_Zombie : MonoBehaviour
 
     void Start()
     {
-        MyPos = this.GetComponent<Transform>();
+        RB = GetComponent<Rigidbody>();
+        MyPos = GetComponent<Transform>();
         currState = idleState;  //The Idle State will be the first State the AI enters. From there it will continue to chain into different states
-        currState.InitializeState(this);
+        currState.InitializeState(this);    //Execute the first State's Initializing Method at the beginning
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        currState.ZombieOnCollisionEnter(this);     //Only the current state's Collision Method will be called 
     }
 
     void Update()
     {
-        currState.UpdateState(this);
+        currState.UpdateState(this);    //Only the current state's Update Method will be called
     }
 
+    /// <summary>
+    /// Transition to following state
+    /// </summary>
+    /// <param name="nextState">Next State that should be executed</param>
     public void LoadNextState(State_ZombieBase nextState)
     {
-        currState = nextState;
-        currState.InitializeState(this);
+        currState = nextState;      //Following state will now be the current state
+        currState.InitializeState(this);    //Instantly execute the next State's Initializing Method
     }
 }
