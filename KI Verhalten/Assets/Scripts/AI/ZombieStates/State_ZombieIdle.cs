@@ -5,10 +5,9 @@ using UnityEngine;
 public class State_ZombieIdle : State_ZombieBase
 {
 
-    public float DetectionRange = 7;
     [SerializeField]
-    private float walkTimer;
-    private Vector3 walkDirection;
+    private float walkTimer;    //Time delay of randomizing target points
+    private Vector3 walkDirection;  //Random target point to walk towards
     
 
     public override void InitializeState(StateManager_Zombie _zombieState)
@@ -16,7 +15,7 @@ public class State_ZombieIdle : State_ZombieBase
         Debug.Log("Idle State initialized!");
     }
 
-    public override void ZombieOnCollisionEnter(StateManager_Zombie _zombieState)
+    public override void ZombieOnCollisionEnter(StateManager_Zombie _zombieState, Collision _collision)
     {
         throw new System.NotImplementedException();
     }
@@ -26,8 +25,8 @@ public class State_ZombieIdle : State_ZombieBase
         IdleWalkCycle(_zombieState);
         //Provisoric code for Playerdetection. Subject to change (wanted to make a viewrange in a specific range and angle and if player is seen change state)
         Vector3 playerDir = _zombieState.PlayerPos.position - _zombieState.MyPos.position;
-        if (playerDir.magnitude <= DetectionRange)
-            _zombieState.LoadNextState(_zombieState.chaseState);
+        if (playerDir.magnitude <= _zombieState.DetectionRange)     //Make a Vector from own position to Player's position and check it's length.
+            _zombieState.LoadNextState(_zombieState.chaseState);    //If the Vector is below Detectionrange > Transition to Chase State
     }
 
     private void IdleWalkCycle(StateManager_Zombie _zombieState)
@@ -37,7 +36,7 @@ public class State_ZombieIdle : State_ZombieBase
         else if (walkTimer <= 0)
         {
             walkTimer = 3;
-            walkDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            walkDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));   //Determine a new point the AI walks towards every 3 seconds
         }
 
         _zombieState.RB.AddForce(walkDirection * _zombieState.MoveSpeed);

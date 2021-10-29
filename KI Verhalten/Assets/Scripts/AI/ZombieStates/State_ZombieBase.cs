@@ -20,5 +20,5 @@ public abstract class State_ZombieBase
     /// Each State has its own Collision Method that gets called seperately in the Zombie Statemanager
     /// </summary>
     /// <param name="_zombieState">Reference to Zombie Statemanager</param>
-    public abstract void ZombieOnCollisionEnter(StateManager_Zombie _zombieState);
+    public abstract void ZombieOnCollisionEnter(StateManager_Zombie _zombieState, Collision _collision);
 }

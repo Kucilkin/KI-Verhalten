@@ -9,9 +9,9 @@ public class State_ZombieChase : State_ZombieBase
         Debug.Log("Chase State initialized!");
     }
 
-    public override void ZombieOnCollisionEnter(StateManager_Zombie _zombieState)
+    public override void ZombieOnCollisionEnter(StateManager_Zombie _zombieState, Collision _collision)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void UpdateState(StateManager_Zombie _zombieState)

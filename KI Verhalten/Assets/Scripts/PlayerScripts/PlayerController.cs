@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private float sprintSpeedMultiplier;
     private Vector3 currInput;
 
     void Start()
@@ -18,7 +20,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         currInput = Movement();
-
     }
 
     private void FixedUpdate()
@@ -30,19 +31,18 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 moveInput = Vector3.zero;
 
-        //if (Input.GetAxisRaw("Horizontal") < 0)
-        //    moveInput += transform.right;
-        //if (Input.GetAxisRaw("Horizontal") > 0)
-        //    moveInput -= transform.right;
-        //if (Input.GetAxisRaw("Vertical") > 0)
-        //    moveInput += transform.forward;
-        //if (Input.GetAxisRaw("Vertical") < 0)
-        //    moveInput -= transform.forward;
-
         moveInput += transform.right * Input.GetAxisRaw("Horizontal");
         moveInput += transform.forward * Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            moveSpeed *= sprintSpeedMultiplier;
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            moveSpeed /= sprintSpeedMultiplier;
 
         return moveInput.normalized;    //Normalize directional Vector to ensure walking speed doesn't change depending on input
     }
+
+    
+    
+
 }

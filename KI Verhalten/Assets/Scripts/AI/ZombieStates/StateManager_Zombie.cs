@@ -9,6 +9,8 @@ public class StateManager_Zombie : MonoBehaviour
     public Transform PlayerPos;
     public Transform MyPos;
     public float MoveSpeed;
+    public float DetectionRange;
+
 
     public State_ZombieBase currState;  //Current State the Entity will be in
 
@@ -28,7 +30,7 @@ public class StateManager_Zombie : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        currState.ZombieOnCollisionEnter(this);     //Only the current state's Collision Method will be called 
+        currState.ZombieOnCollisionEnter(this, collision);     //Only the current state's Collision Method will be called 
     }
 
     void Update()

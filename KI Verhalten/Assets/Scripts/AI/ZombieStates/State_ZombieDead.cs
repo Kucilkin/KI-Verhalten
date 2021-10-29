@@ -9,7 +9,7 @@ public class State_ZombieDead : State_ZombieBase
         throw new System.NotImplementedException();
     }
 
-    public override void ZombieOnCollisionEnter(StateManager_Zombie _zombieState)
+    public override void ZombieOnCollisionEnter(StateManager_Zombie _zombieState, Collision _collision)
     {
         throw new System.NotImplementedException();
     }
