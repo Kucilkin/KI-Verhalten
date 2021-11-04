@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class State_ZombieIdle : State_ZombieBase
 {
-
+    
     [SerializeField]
     private float walkTimer;    //Time delay of randomizing target points
     private Vector3 walkDirection;  //Random target point to walk towards
@@ -36,10 +36,13 @@ public class State_ZombieIdle : State_ZombieBase
         else if (walkTimer <= 0)
         {
             walkTimer = 3;
-            walkDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));   //Determine a new point the AI walks towards every 3 seconds
+            walkDirection = _zombieState.Waypoints[Random.Range(0, _zombieState.Waypoints.Length)].normalized;
+            //walkDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));   //Determine a new point the AI walks towards every 3 seconds
         }
 
         _zombieState.RB.AddForce(walkDirection * _zombieState.MoveSpeed);
+
+
         //_zombieState.transform.rotation = Quaternion.Euler(_zombieState.transform.rotation.x, _zombieState.transform.rotation.x + _zombieState.transform.rotation.z, _zombieState.transform.rotation.z);
     }
 }

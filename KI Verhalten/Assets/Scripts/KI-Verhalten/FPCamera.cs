@@ -27,6 +27,7 @@ public class FPCamera : MonoBehaviour
         mouseY = Input.GetAxis("Mouse Y") * MouseSensitivity;
 
         verticalRotation -= mouseY;     //Decrementing Vertical Rotation Value because incrementing inverts Movement
+        verticalRotation = Mathf.Clamp(verticalRotation, -80f, 90f);
         transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0); //Setting the Rotation on Y Axis (Player shouldn't rotate here)
 
         PlayerRotation.Rotate(Vector3.up * mouseX);     //Setting Rotation on X Axis (Player should be turning as well)

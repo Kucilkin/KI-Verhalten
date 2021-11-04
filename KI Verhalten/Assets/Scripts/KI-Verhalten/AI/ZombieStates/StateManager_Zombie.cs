@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateManager_Zombie : MonoBehaviour
 {
-
+    public Vector3[] Waypoints;
     public Rigidbody RB;
     public Transform PlayerPos;
     public Transform MyPos;
